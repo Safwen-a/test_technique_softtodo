@@ -2,37 +2,53 @@
 
 {% block title %}
     Project index    
+        
+    
 {% endblock %}
 {% block body %}
-    <h1>
-    </h1>
+    <h1></h1>
     <div class="row">
-            {% for project in projects %}
+        {% for project in projects %}
             <div class="col-sm-3">
                 <div class="card text-center" style="width: 18rem;margin: 2em;">
                     <img src="/{{ project.image }}" class="card-img-top" alt="{{ project.image }}">
                         <div class="card-body">
                             <h5 class="card-title">
                                 {{ project.title }}
-                            </h5> 
-                            <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-outline-secondary">
-                                Edit project                                                           
-                            </a>
+                            </h5>
+                            {% for myRole in ROLE %}
+                                {% if myRole == "ROLE_ADMIN" %}
+                                    <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-outline-secondary">
+                                        Edit project                                                                                       
+                                                                        
+                                    </a>
+                                {% endif %}
+                            {% endfor %}
                             <hr class="py-1">
-                            <div style="float:left;">
-                                last updated
+                                <div style="float:left;">
+                                    last updated
+                                                                                                    
+                                                                    
+                                </div>
+                                <div style="float:right;">
+                                    {{ project.numberOfTasks }}
+                                    tasks
+                                                                                                    
+                                                                    
+                                </div>
                             </div>
-                            <div style="float:right;">
-                                {{ project.numberOfTasks }} tasks
-                            </div>                           
                         </div>
                     </div>
-                </div>
-            {% else %}
-                        no records found
+                {% else %}
+                    no records found     
+                {% endfor %}
+            </div>
+            {% for myRole in ROLE %}
+                {% if myRole == "ROLE_ADMIN" %}
+                    <a href="{{ path('app_project_new') }}" class="btn btn-success">
+                        Create new                 
+                    </a>
+                {% endif %}
             {% endfor %}
-        </div>
-    <a href="{{ path('app_project_new') }}">
-        Create new                
-    </a>
-{% endblock %}
+        {% endblock %}
+        

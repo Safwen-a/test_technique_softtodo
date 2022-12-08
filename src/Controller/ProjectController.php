@@ -19,20 +19,20 @@ class ProjectController extends AbstractController
     {
         return $this->render('project/index.html.twig', [
             'projects' => $projectRepository->findAll(),
-            'Search' => null,
+            'ROLE'=>$this->getUser()->getRoles(),
         ]);
     }
     #[Route('/', name: 'app_project_filter', methods: ['POST'])]
     public function index_filtred(ProjectRepository $projectRepository): Response
     {
         $allproject = $projectRepository->findAll();
-
         return $this->render('project/index.html.twig', [
             'projects' => array_filter($allproject, function ($x) {
                 if (strpos($x->getTitle(), $_POST["search"]) !== false || strpos($x->getFilename(), $_POST["search"]) !== false || strpos($x->getStatus(), $_POST["search"]) !== false)
                     return $x;
             }),
             'Search' => $_POST["search"],
+            'ROLE'=>$this->getUser()->getRoles(),
         ]);
     }
 
