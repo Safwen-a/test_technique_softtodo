@@ -28,6 +28,7 @@ class AuthController extends AbstractController
     #[Route('/sign-out', name: 'app_sign_out')]
     public function app_sign_out(): Response
     {
+        
         // controller can be blank: it will never be called!
         throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }

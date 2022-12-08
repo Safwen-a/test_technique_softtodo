@@ -6,6 +6,8 @@ use App\Entity\Project;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class ProjectType extends AbstractType
 {
@@ -17,7 +19,13 @@ class ProjectType extends AbstractType
             ->add('filename')
             ->add('number_of_tasks')
             ->add('description')
-            ->add('status')
+            ->add('status', ChoiceType::class, [
+                'choices' => [
+                    'in progress' => 'in progress',
+                    'done' => 'done',
+                    'blocked' => 'blocked',
+                ],
+            ])
         ;
     }
 

@@ -32,6 +32,17 @@ class Project
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $last_updated = null;
+
+    private $last_updated_day = null;
+
+    public function setUpdated(): void
+    {
+        // will NOT be saved in the database
+        $this->updated->modify("now");
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +116,29 @@ class Project
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getLastUpdated(): ?string
+    {
+        return $this->last_updated;
+    }
+
+    public function setLastUpdated(string $last_updated): self
+    {
+        $this->last_updated = $last_updated;
+
+        return $this;
+    }
+    public function getLastUpdatedDay(): ?string
+    {
+        return $this->last_updated;
+    }
+
+    public function setLastUpdatedDay(string $last_updated): self
+    {
+        $this->last_updated = $last_updated;
 
         return $this;
     }
